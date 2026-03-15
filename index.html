@@ -42,6 +42,10 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        /* Touch-friendly: evita zoom duplo-tap em inputs no iOS */
+        input, select, textarea, button { font-size: 16px; touch-action: manipulation; }
+        button, a, .toggle-btn, .sidebar-btn { -webkit-tap-highlight-color: transparent; }
+
         body {
             font-family: 'Barlow', sans-serif;
             background: var(--gray-100);
@@ -596,9 +600,10 @@
                 text-align: center;
                 border-left: none;
                 border-bottom: 3px solid transparent;
-                font-size: 0.7rem;
-                padding: 8px 10px;
+                font-size: 0.75rem;
+                padding: 10px 12px;
                 white-space: nowrap;
+                min-height: 44px;
             }
             .sidebar-btn.active { border-left-color: transparent; border-bottom-color: var(--primary); }
 
@@ -607,45 +612,103 @@
             header img { height: 50px !important; }
 
             .container { padding: 10px; }
-            .card { padding: 16px; margin-bottom: 12px; }
+            .card { padding: 14px; margin-bottom: 12px; }
             .card-title { font-size: 0.9rem; flex-wrap: wrap; gap: 6px; }
 
             .form-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .form-group input, .form-group select { font-size: 0.85rem; padding: 8px 10px; }
+            .form-group input, .form-group select {
+                font-size: 0.85rem;
+                padding: 10px;
+                min-height: 44px;
+            }
 
-            .imposto-row { grid-template-columns: 1fr; gap: 10px; }
-            .imposto-input-group { flex-wrap: wrap; }
+            .imposto-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .imposto-input-group { flex-wrap: wrap; gap: 4px; }
+            .imposto-input-group input { width: 70px; min-height: 44px; }
 
-            .cue-results { grid-template-columns: 1fr 1fr; gap: 10px; }
-            .cue-box { padding: 12px; }
-            .cue-box .cue-value { font-size: 1.1rem; }
+            .cue-results { grid-template-columns: 1fr 1fr; gap: 8px; }
+            .cue-box { padding: 10px; }
+            .cue-box .cue-label { font-size: 0.6rem; }
+            .cue-box .cue-sublabel { font-size: 0.55rem; }
+            .cue-box .cue-value { font-size: 1rem; }
 
             .channel-grid { grid-template-columns: 1fr; }
 
+            /* Toggle buttons */
+            .toggle-group { flex-wrap: wrap; }
+            .toggle-btn { padding: 8px 12px; font-size: 0.7rem; min-height: 36px; }
+
             /* Tabelas scrolláveis no mobile */
             .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-            table { min-width: 700px; }
+            table { min-width: 650px; }
 
             /* Blocos de lote */
             .results-grid { grid-template-columns: 1fr; }
 
-            /* Tela inicial */
+            /* Inline-flex responsivo */
+            .inline-flex { flex-wrap: wrap; gap: 8px; }
+
+            /* Filtros de bloco */
+            .card [style*="display:flex"][style*="flex-wrap:wrap"] select,
+            .card [style*="display: flex"][style*="flex-wrap: wrap"] select {
+                min-height: 44px;
+                font-size: 0.8rem;
+            }
+
+            /* Premissas e grids inline */
+            .card [style*="grid-template-columns: 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+            .card [style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
             .card [style*="grid-template-columns: 1fr 1fr"] { grid-template-columns: 1fr !important; }
             .card [style*="grid-template-columns:1fr 1fr"] { grid-template-columns: 1fr !important; }
             .card [style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
             .card [style*="grid-template-columns: repeat(3"] { grid-template-columns: 1fr !important; }
+            [style*="grid-template-columns: 1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+            [style*="grid-template-columns:1fr 1fr 1fr"] { grid-template-columns: 1fr !important; }
+
+            /* Botões touch-friendly */
+            .btn { min-height: 44px; padding: 12px 20px; }
+            .btn-icon { min-width: 36px; min-height: 36px; }
+
+            /* Radio e labels */
+            .output-radio-group { flex-wrap: wrap; }
+            .output-radio-group .form-group { min-width: 45%; }
+
+            /* Badge tags de resumo */
+            div[style*="display:flex"][style*="gap:6px"] { gap: 4px !important; }
+            div[style*="display:flex"][style*="gap:6px"] span {
+                font-size: 0.6rem !important;
+                padding: 3px 6px !important;
+            }
+
+            /* Tooltip CUE no mobile */
+            .cue-tooltip {
+                left: 0 !important;
+                right: auto !important;
+                min-width: 180px !important;
+            }
         }
 
         /* Mobile pequeno */
         @media (max-width: 480px) {
             .form-grid { grid-template-columns: 1fr; }
             .cue-results { grid-template-columns: 1fr; }
-            .sidebar-btn { font-size: 0.65rem; padding: 6px 8px; }
-            header h1 { font-size: 1rem; }
-            .card { padding: 12px; }
-            .card-title { font-size: 0.85rem; }
-            table { min-width: 600px; font-size: 0.7rem; }
+            .sidebar-btn { font-size: 0.65rem; padding: 8px 6px; }
+            header { padding: 10px 12px; }
+            header h1 { font-size: 0.95rem; }
+            header img { height: 36px !important; }
+            header > div { gap: 10px !important; }
+            .card { padding: 10px; }
+            .card-title { font-size: 0.8rem; }
+            table { min-width: 550px; font-size: 0.7rem; }
             th, td { padding: 6px 8px; }
+            .imposto-row { grid-template-columns: 1fr; }
+            .toggle-group { width: 100%; }
+            .toggle-btn { flex: 1; text-align: center; padding: 8px 6px; font-size: 0.65rem; }
+            .cue-box .cue-value { font-size: 0.9rem; }
+            .cue-box .cue-label { font-size: 0.55rem; }
+            .output-radio-group .form-group { min-width: 100%; }
+            .btn-group { flex-direction: column; }
+            .btn { width: 100%; }
         }
     </style>
 </head>
